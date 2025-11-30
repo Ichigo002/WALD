@@ -3,7 +3,7 @@
   "configuration": "cpu=atmega328old",
   "output": "build",
   "board": "arduino:avr:nano",
-  "programmer": "",
+  "programmer": "arduinoasisp",
   "useProgrammer": false,
   "optimize_for_debug": false,
   "configurationRequired": true,
