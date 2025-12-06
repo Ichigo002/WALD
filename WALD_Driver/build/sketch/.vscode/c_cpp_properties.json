@@ -31,9 +31,10 @@
         "-DARDUINO_ARCH_AVR",
         "-IC:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
         "-IC:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
-        "d:\\Documents\\GitHub\\WALD\\WALD_Driver\\build\\sketch\\WALD_Driver.ino.cpp",
+        "-IC:\\Users\\Deciak28_\\Documents\\Arduino\\libraries\\JLed\\src",
+        "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\build\\sketch\\WALD_Driver.ino.cpp",
         "-o",
-        "d:\\Documents\\GitHub\\WALD\\WALD_Driver\\build\\sketch\\WALD_Driver.ino.cpp.o"
+        "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\build\\sketch\\WALD_Driver.ino.cpp.o"
       ],
       "defines": [
         "F_CPU=16000000L",
