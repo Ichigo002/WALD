@@ -1,5 +1,6 @@
-D:\Documents\GitHub\WALD\WALD_Driver\build\sketch\WALD_Driver.ino.cpp.o: \
- D:\Documents\GitHub\WALD\WALD_Driver\build\sketch\WALD_Driver.ino.cpp \
+D:\Documents\GitHub\WALD\WALD_Driver\build\libraries\TimerKernel\TimerKernel.cpp.o: \
+ C:\Users\Deciak28_\Documents\Arduino\libraries\TimerKernel\src\TimerKernel.cpp \
+ C:\Users\Deciak28_\Documents\Arduino\libraries\TimerKernel\src\TimerKernel.h \
  C:\Users\Deciak28_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/Arduino.h \
  C:\Users\Deciak28_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/binary.h \
  C:\Users\Deciak28_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/WCharacter.h \
@@ -11,10 +12,4 @@ D:\Documents\GitHub\WALD\WALD_Driver\build\sketch\WALD_Driver.ino.cpp.o: \
  C:\Users\Deciak28_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/USBAPI.h \
  C:\Users\Deciak28_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\cores\arduino/Arduino.h \
  C:\Users\Deciak28_\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.6\variants\eightanaloginputs/pins_arduino.h \
- c:\users\deciak28_\appdata\local\arduino15\packages\arduino\hardware\avr\1.8.6\variants\standard\pins_arduino.h \
- D:\Documents\GitHub\WALD\WALD_Driver\build\sketch\config.h \
- D:\Documents\GitHub\WALD\WALD_Driver\build\sketch\testing.h \
- C:\Users\Deciak28_\Documents\Arduino\libraries\JLed\src/jled.h \
- C:\Users\Deciak28_\Documents\Arduino\libraries\JLed\src/jled_base.h \
- C:\Users\Deciak28_\Documents\Arduino\libraries\JLed\src/arduino_hal.h \
- C:\Users\Deciak28_\Documents\Arduino\libraries\TimerKernel\src/TimerKernel.h
+ c:\users\deciak28_\appdata\local\arduino15\packages\arduino\hardware\avr\1.8.6\variants\standard\pins_arduino.h

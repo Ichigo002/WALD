@@ -3,8 +3,10 @@
 #include "config.h"
 #include "testing.h"
 #include <jled.h>
+#include <TimerKernel.h>
 
 int sr_bin = 0;
+int sr_bin_static = 0;
 
 int set_time = -1;
 bool sw_t_cooldown = false;
@@ -18,6 +20,8 @@ int rv_channel_updated = false;
 int rv_mono_animation = false;
 auto ld_mono_fade = JLed(LD_MONO).Forever();
 
+TimerKernel sn_led_timers[6];
+
 /**
  * leds:
  * 0 - 15min
@@ -28,29 +32,31 @@ auto ld_mono_fade = JLed(LD_MONO).Forever();
  * 4 - rgb led
  * 5 - mono led
  */
-#line 30 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+#line 34 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 void set_led(int led, bool value);
-#line 36 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+#line 40 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 void updateRegister();
-#line 43 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+#line 47 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 void HSVtoRGB(float H, float S, float V, byte &r, byte &g, byte &b);
-#line 94 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+#line 98 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 bool updateRVs(int index);
-#line 117 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
-void handleSwitches();
-#line 168 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
-void handleRVs();
-#line 206 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
-void setup_pins();
+#line 121 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+void updateSwitches();
+#line 166 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+void updateRVs();
+#line 204 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+void updateSnTimers();
 #line 222 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+void setup_pins();
+#line 238 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 void setup();
-#line 237 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+#line 253 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 void loop();
-#line 30 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+#line 34 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 void set_led(int led, bool value)
 {
-    sr_bin &= ~(1 << led); // wyzeruj bit n
-    sr_bin |= (value << led);
+    sr_bin_static &= ~(1 << led); // wyzeruj bit n
+    sr_bin_static |= (value << led);
 }
 
 void updateRegister()
@@ -134,7 +140,7 @@ bool updateRVs(int index)
     return updated;
 }
 
-void handleSwitches()
+void updateSwitches()
 {
     if (digitalRead(SW_1_MONO) == LOW)
     {
@@ -142,8 +148,6 @@ void handleSwitches()
 
         set_led(4, rgb_channel_active);
         set_led(5, !rgb_channel_active);
-
-        updateRegister();
     }
     else if (analogRead(SW_3_RGB) < 512)
     {
@@ -151,8 +155,6 @@ void handleSwitches()
 
         set_led(4, rgb_channel_active);
         set_led(5, !rgb_channel_active);
-
-        updateRegister();
     }
 
     if (digitalRead(SW_2_T) == LOW && sw_t_cooldown == false)
@@ -173,8 +175,6 @@ void handleSwitches()
         {
             set_led(set_time, true);
         }
-
-        updateRegister();
         delay(20);
     }
 
@@ -185,7 +185,7 @@ void handleSwitches()
     }
 }
 
-void handleRVs()
+void updateRVs()
 {
     // RV brightness
     if (rgb_channel_active)
@@ -219,6 +219,24 @@ void handleRVs()
             ld_mono_fade.MaxBrightness(255);
             ld_mono_fade.MinBrightness(0);
             ld_mono_fade.Set(x);
+        }
+    }
+}
+
+void updateSnTimers()
+{
+    for (size_t i = 0; i < 6; i++)
+    {
+        if (sn_led_timers[i].hasExpired(100, MICROSECOND))
+        {
+            if ((sr_bin_static & (1 << i)) == 0)
+            {
+                sr_bin &= ~(1 << i); // wyzeruj bit n
+            }
+            else
+            {
+                sr_bin = sr_bin ^ (1 << i);
+            }
         }
     }
 }
@@ -261,9 +279,12 @@ void loop()
     // TEST_UNIT::TEST_SW(SW_1_MONO);
     // TEST_UNIT::TEST_SW(SW_2_T);
     // TEST_UNIT::TEST_SW(SW_3_RGB);
-    handleSwitches();
-    handleRVs();
+
+    updateSwitches();
+    updateRVs();
+    updateSnTimers();
 
     ld_mono_fade.Update();
+    updateRegister();
 }
 

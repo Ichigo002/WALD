@@ -3,6 +3,8 @@
 
 #include <Arduino.h>
 
+constexpr double sn_led_timer_interval = 1; // it is simple pwm signal to reduce light of control led cuz its to bright!
+
 constexpr byte rv_min_sensitivity = 3; //default: 3
 constexpr byte rv_max_sensitivity = 50; //default 50
 constexpr int ld_mono_breathe_anim_max_time_ms = 20000; // maximal time of animation breath
