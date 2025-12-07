@@ -51,9 +51,9 @@ constexpr uint8_t SW_1_MONO = 11; //  one color leds. Extra: Press for 3 sec to 
 constexpr uint8_t SW_2_T = 12; // set timer to turn off autoamtically.
 constexpr uint8_t SW_3_RGB = 2; // A2 analog, rgb leds. Extra: Press for 3 sec to change transition mode
 
-constexpr uint8_t LD_RED = 5; // pin to control mosfet responsible for red light
-constexpr uint8_t LD_GREEN = 6; // pin to control mosfet responsible for blue light
-constexpr uint8_t LD_BLUE = 9; // pin to control mosfet responsible for green light
+constexpr uint8_t LD_RED = 6; // pin to control mosfet responsible for red light
+constexpr uint8_t LD_GREEN = 9; // pin to control mosfet responsible for blue light
+constexpr uint8_t LD_BLUE = 5; // pin to control mosfet responsible for green light
 constexpr uint8_t LD_MONO = 3; // mono channel leds, 
 
 constexpr uint8_t RV_RGB = 0; // pin A0 to measure rgb analog potentiometer

@@ -64,15 +64,15 @@ bool updateRVs(int index);
 void updateSwitches();
 #line 193 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 void updateRVs();
-#line 231 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+#line 232 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 void updateTimer();
-#line 295 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+#line 283 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 void updateShiftRegister();
-#line 331 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+#line 319 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 void setup_pins();
-#line 347 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+#line 335 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 void setup();
-#line 360 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+#line 348 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 void loop();
 #line 56 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 void set_led(int led, bool value)
@@ -217,14 +217,15 @@ void updateRVs()
     // RV brightness
     if (rgb_channel_active)
     {
-        /* if (updateRVs(1))
-         {
-             byte r, g, b;
-             HSVtoRGB(rv_rgb_v[1], 1.0, rv_brightness_v[1] / 1023.0f, r, g, b);
-             analogWrite(LD_RED, r);
-             analogWrite(LD_GREEN, g);
-             analogWrite(LD_BLUE, b);
-         }*/
+        if (updateRVs(1))
+        {
+            byte r, g, b;
+            int v = map(rv_rgb_v[1], 0, 1023, 0, 360);
+            HSVtoRGB(v , 1.0, rv_brightness_v[1] / 1023.0f, r, g, b);
+            analogWrite(LD_RED, r);
+            analogWrite(LD_GREEN, g);
+            analogWrite(LD_BLUE, b);
+        }
     }
     else if (updateRVs(0))
     {
@@ -258,7 +259,7 @@ void updateTimer()
     {
         if (tr_sleep_mode)
         {
-            
+
             if (sw_timer_reset_leds)
             {
                 sw_timer_reset_leds = false;
@@ -270,19 +271,6 @@ void updateTimer()
             {
                 sr_bin_static = tr_bin_storage | sr_bin_static;
             }
-
-
-            for (size_t i = 0; i < 8; i++)
-            {
-                Serial.print(bitRead(sr_bin_static, i));
-            }
-            Serial.println(" - sr_bin_static");
-
-            for (size_t i = 0; i < 8; i++)
-            {
-                Serial.print(bitRead(tr_bin_storage, i));
-            }
-            Serial.println(" - tr_bin_storage");
         }
         tr_sleep_mode = false;
         tr_activity = false;
