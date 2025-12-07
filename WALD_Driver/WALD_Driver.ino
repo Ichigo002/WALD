@@ -4,6 +4,7 @@
 #include <jled.h>
 
 int sw_set_time = -1; // update sw
+bool sw_timer_reset_leds = false;
 bool sw_t_cooldown = false; // switch
 
 // timer variables to count down chosen time
@@ -119,6 +120,7 @@ bool updateRVs(int index)
     {
         rv_brightness_v[index] = x;
         updated = true;
+        tr_activity = true;
     }
 
     x = analogRead(RV_RGB);
@@ -127,6 +129,7 @@ bool updateRVs(int index)
     {
         rv_rgb_v[index] = x;
         updated = true;
+        tr_activity = true;
     }
 
     return updated;
@@ -165,7 +168,7 @@ void updateSwitches()
             {
                 set_led(i, false);
             }
-
+            sw_timer_reset_leds = true;
             tr_infinity = true;
             tr_updated = true;
         }
@@ -234,8 +237,10 @@ void updateTimer()
         if (tr_sleep_mode)
         {
             
-            if (sw_set_time == -1)
+            if (sw_timer_reset_leds)
             {
+                sw_timer_reset_leds = false;
+
                 sr_bin_static = tr_bin_storage;
                 sr_bin_static = sr_bin_static ^ 0b00001111;
             }

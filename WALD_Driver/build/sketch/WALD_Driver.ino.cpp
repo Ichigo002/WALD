@@ -60,19 +60,19 @@ void set_led(int led, bool value);
 void HSVtoRGB(float H, float S, float V, byte &r, byte &g, byte &b);
 #line 113 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 bool updateRVs(int index);
-#line 136 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+#line 138 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 void updateSwitches();
-#line 191 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+#line 193 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 void updateRVs();
-#line 229 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+#line 231 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 void updateTimer();
-#line 291 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+#line 295 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 void updateShiftRegister();
-#line 327 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+#line 331 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 void setup_pins();
-#line 343 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+#line 347 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 void setup();
-#line 356 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
+#line 360 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 void loop();
 #line 56 "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\WALD_Driver.ino"
 void set_led(int led, bool value)
@@ -142,6 +142,7 @@ bool updateRVs(int index)
     {
         rv_brightness_v[index] = x;
         updated = true;
+        tr_activity = true;
     }
 
     x = analogRead(RV_RGB);
@@ -150,6 +151,7 @@ bool updateRVs(int index)
     {
         rv_rgb_v[index] = x;
         updated = true;
+        tr_activity = true;
     }
 
     return updated;
@@ -257,8 +259,10 @@ void updateTimer()
         if (tr_sleep_mode)
         {
             
-            if (sw_set_time == -1)
+            if (sw_timer_reset_leds)
             {
+                sw_timer_reset_leds = false;
+
                 sr_bin_static = tr_bin_storage;
                 sr_bin_static = sr_bin_static ^ 0b00001111;
             }

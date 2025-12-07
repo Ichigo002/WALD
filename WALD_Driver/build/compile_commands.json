@@ -86,11 +86,11 @@
    "-IC:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
    "-IC:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "-IC:\\Users\\Deciak28_\\Documents\\Arduino\\libraries\\JLed\\src",
-   "C:\\Users\\Deciak28_\\Documents\\Arduino\\libraries\\JLed\\src\\esp32_hal.cpp",
+   "C:\\Users\\Deciak28_\\Documents\\Arduino\\libraries\\JLed\\src\\jled_base.cpp",
    "-o",
-   "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\build\\libraries\\JLed\\esp32_hal.cpp.o"
+   "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\build\\libraries\\JLed\\jled_base.cpp.o"
   ],
-  "file": "C:\\Users\\Deciak28_\\Documents\\Arduino\\libraries\\JLed\\src\\esp32_hal.cpp"
+  "file": "C:\\Users\\Deciak28_\\Documents\\Arduino\\libraries\\JLed\\src\\jled_base.cpp"
  },
  {
   "directory": "C:\\Users\\Deciak28_\\AppData\\Local\\Programs\\Microsoft VS Code",
@@ -117,11 +117,11 @@
    "-IC:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
    "-IC:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "-IC:\\Users\\Deciak28_\\Documents\\Arduino\\libraries\\JLed\\src",
-   "C:\\Users\\Deciak28_\\Documents\\Arduino\\libraries\\JLed\\src\\jled_base.cpp",
+   "C:\\Users\\Deciak28_\\Documents\\Arduino\\libraries\\JLed\\src\\esp32_hal.cpp",
    "-o",
-   "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\build\\libraries\\JLed\\jled_base.cpp.o"
+   "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\build\\libraries\\JLed\\esp32_hal.cpp.o"
   ],
-  "file": "C:\\Users\\Deciak28_\\Documents\\Arduino\\libraries\\JLed\\src\\jled_base.cpp"
+  "file": "C:\\Users\\Deciak28_\\Documents\\Arduino\\libraries\\JLed\\src\\esp32_hal.cpp"
  },
  {
   "directory": "C:\\Users\\Deciak28_\\AppData\\Local\\Programs\\Microsoft VS Code",
@@ -651,6 +651,36 @@
    "-DARDUINO_ARCH_AVR",
    "-IC:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
    "-IC:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
+   "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\main.cpp",
+   "-o",
+   "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\build\\core\\main.cpp.o"
+  ],
+  "file": "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\main.cpp"
+ },
+ {
+  "directory": "C:\\Users\\Deciak28_\\AppData\\Local\\Programs\\Microsoft VS Code",
+  "arguments": [
+   "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
+   "-c",
+   "-g",
+   "-Os",
+   "-w",
+   "-std=gnu++11",
+   "-fpermissive",
+   "-fno-exceptions",
+   "-ffunction-sections",
+   "-fdata-sections",
+   "-fno-threadsafe-statics",
+   "-Wno-error=narrowing",
+   "-MMD",
+   "-flto",
+   "-mmcu=atmega328p",
+   "-DF_CPU=16000000L",
+   "-DARDUINO=10607",
+   "-DARDUINO_AVR_NANO",
+   "-DARDUINO_ARCH_AVR",
+   "-IC:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
+   "-IC:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
    "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\new.cpp",
    "-o",
    "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\build\\core\\new.cpp.o"
@@ -678,41 +708,11 @@
    "-DARDUINO_ARCH_AVR",
    "-IC:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
    "-IC:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
-   "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring.c",
+   "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring_analog.c",
    "-o",
-   "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\build\\core\\wiring.c.o"
+   "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\build\\core\\wiring_analog.c.o"
   ],
-  "file": "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring.c"
- },
- {
-  "directory": "C:\\Users\\Deciak28_\\AppData\\Local\\Programs\\Microsoft VS Code",
-  "arguments": [
-   "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7/bin/avr-g++",
-   "-c",
-   "-g",
-   "-Os",
-   "-w",
-   "-std=gnu++11",
-   "-fpermissive",
-   "-fno-exceptions",
-   "-ffunction-sections",
-   "-fdata-sections",
-   "-fno-threadsafe-statics",
-   "-Wno-error=narrowing",
-   "-MMD",
-   "-flto",
-   "-mmcu=atmega328p",
-   "-DF_CPU=16000000L",
-   "-DARDUINO=10607",
-   "-DARDUINO_AVR_NANO",
-   "-DARDUINO_ARCH_AVR",
-   "-IC:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
-   "-IC:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
-   "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\main.cpp",
-   "-o",
-   "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\build\\core\\main.cpp.o"
-  ],
-  "file": "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\main.cpp"
+  "file": "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring_analog.c"
  },
  {
   "directory": "C:\\Users\\Deciak28_\\AppData\\Local\\Programs\\Microsoft VS Code",
@@ -747,29 +747,6 @@
    "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7/bin/avr-gcc",
    "-c",
    "-g",
-   "-x",
-   "assembler-with-cpp",
-   "-flto",
-   "-MMD",
-   "-mmcu=atmega328p",
-   "-DF_CPU=16000000L",
-   "-DARDUINO=10607",
-   "-DARDUINO_AVR_NANO",
-   "-DARDUINO_ARCH_AVR",
-   "-IC:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
-   "-IC:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
-   "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring_pulse.S",
-   "-o",
-   "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\build\\core\\wiring_pulse.S.o"
-  ],
-  "file": "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring_pulse.S"
- },
- {
-  "directory": "C:\\Users\\Deciak28_\\AppData\\Local\\Programs\\Microsoft VS Code",
-  "arguments": [
-   "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7/bin/avr-gcc",
-   "-c",
-   "-g",
    "-Os",
    "-w",
    "-std=gnu11",
@@ -785,11 +762,11 @@
    "-DARDUINO_ARCH_AVR",
    "-IC:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
    "-IC:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
-   "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring_analog.c",
+   "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring.c",
    "-o",
-   "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\build\\core\\wiring_analog.c.o"
+   "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\build\\core\\wiring.c.o"
   ],
-  "file": "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring_analog.c"
+  "file": "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring.c"
  },
  {
   "directory": "C:\\Users\\Deciak28_\\AppData\\Local\\Programs\\Microsoft VS Code",
@@ -844,5 +821,28 @@
    "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\build\\core\\wiring_shift.c.o"
   ],
   "file": "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring_shift.c"
+ },
+ {
+  "directory": "C:\\Users\\Deciak28_\\AppData\\Local\\Programs\\Microsoft VS Code",
+  "arguments": [
+   "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\avr-gcc\\7.3.0-atmel3.6.1-arduino7/bin/avr-gcc",
+   "-c",
+   "-g",
+   "-x",
+   "assembler-with-cpp",
+   "-flto",
+   "-MMD",
+   "-mmcu=atmega328p",
+   "-DF_CPU=16000000L",
+   "-DARDUINO=10607",
+   "-DARDUINO_AVR_NANO",
+   "-DARDUINO_ARCH_AVR",
+   "-IC:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino",
+   "-IC:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\variants\\eightanaloginputs",
+   "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring_pulse.S",
+   "-o",
+   "D:\\Documents\\GitHub\\WALD\\WALD_Driver\\build\\core\\wiring_pulse.S.o"
+  ],
+  "file": "C:\\Users\\Deciak28_\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.8.6\\cores\\arduino\\wiring_pulse.S"
  }
 ]

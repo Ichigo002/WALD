@@ -22,7 +22,7 @@ unsigned long tr_periods_ms[4] = {
     //period 4 - infinity
 };
 
-constexpr unsigned long tr_sleep_mode_ms = 4 * 1000UL; // how long UI leds will be powered to avoid distracting sex and other plays in a bed :) Maybe i will find a girlfriend in the future, However I dont believe in that until studies, adn even during studies in city. ;9
+constexpr unsigned long tr_sleep_mode_ms = 5 * 1000UL; // how long UI leds will be powered to avoid distracting sex and other plays in a bed :) Maybe i will find a girlfriend in the future, However I dont believe in that until studies, adn even during studies in city. ;9
 
 constexpr byte rv_min_sensitivity = 3; //default: 3
 constexpr byte rv_max_sensitivity = 65; //default 50
