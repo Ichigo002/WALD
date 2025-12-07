@@ -2,13 +2,22 @@
 #include "config.h"
 #include "testing.h"
 #include <jled.h>
-#include <TimerKernel.h>
 
-int sr_bin = 0;
-int sr_bin_static = 0;
+int sw_set_time = -1; // update sw
+bool sw_t_cooldown = false; // switch
 
-int set_time = -1;
-bool sw_t_cooldown = false;
+// timer variables to count down chosen time
+unsigned long tr_now;
+unsigned long tr_last_sleep = 0;
+unsigned long tr_last = 0;
+unsigned long tr_phase;
+unsigned long tr_current_period;
+bool tr_infinity = true;
+bool tr_updated = false;
+bool tr_activity = false;
+bool tr_sleep_mode = false;
+byte tr_bin_storage = 0;
+// ==========
 
 bool rgb_channel_active = false;
 
@@ -19,7 +28,19 @@ int rv_channel_updated = false;
 int rv_mono_animation = false;
 auto ld_mono_fade = JLed(LD_MONO).Forever();
 
-TimerKernel sn_led_timers[6];
+// shift register for UI leds
+
+byte sr_bin = 0;        // pwm ready byte for shift register to display
+byte sr_bin_static = 0; // which are turned on
+
+// simple soft pwm for UI leds
+
+unsigned long sr_now;
+unsigned long sr_last = 0;
+unsigned long sr_phase;
+unsigned long sr_leds_state = true;
+
+//=============
 
 /**
  * leds:
@@ -35,13 +56,6 @@ void set_led(int led, bool value)
 {
     sr_bin_static &= ~(1 << led); // wyzeruj bit n
     sr_bin_static |= (value << led);
-}
-
-void updateRegister()
-{
-    digitalWrite(SR_LATCH, LOW);
-    shiftOut(SR_DATA, SR_CLOCK, MSBFIRST, sr_bin);
-    digitalWrite(SR_LATCH, HIGH);
 }
 
 void HSVtoRGB(float H, float S, float V, byte &r, byte &g, byte &b)
@@ -123,6 +137,7 @@ void updateSwitches()
     if (digitalRead(SW_1_MONO) == LOW)
     {
         rgb_channel_active = false;
+        tr_activity = true;
 
         set_led(4, rgb_channel_active);
         set_led(5, !rgb_channel_active);
@@ -130,6 +145,7 @@ void updateSwitches()
     else if (analogRead(SW_3_RGB) < 512)
     {
         rgb_channel_active = true;
+        tr_activity = true;
 
         set_led(4, rgb_channel_active);
         set_led(5, !rgb_channel_active);
@@ -137,21 +153,29 @@ void updateSwitches()
 
     if (digitalRead(SW_2_T) == LOW && sw_t_cooldown == false)
     {
+        tr_activity = true;
+        tr_infinity = false;
         sw_t_cooldown = true;
-        set_time += 1;
+        sw_set_time += 1;
 
-        if (set_time > 3)
+        if (sw_set_time > 3)
         {
-            set_time = -1;
+            sw_set_time = -1;
             for (size_t i = 0; i < 4; i++)
             {
                 set_led(i, false);
             }
+
+            tr_infinity = true;
+            tr_updated = true;
         }
 
-        if (set_time >= 0)
+        if (sw_set_time >= 0)
         {
-            set_led(set_time, true);
+            set_led(sw_set_time, true);
+
+            tr_current_period = tr_periods_ms[sw_set_time];
+            tr_updated = true;
         }
         delay(20);
     }
@@ -201,22 +225,102 @@ void updateRVs()
     }
 }
 
-void updateSnTimers()
+void updateTimer()
 {
-    for (size_t i = 0; i < 6; i++)
+    tr_now = millis();
+
+    if (tr_activity)
     {
-        if (sn_led_timers[i].hasExpired(sn_led_timer_interval))
+        if (tr_sleep_mode)
         {
-            if ((sr_bin_static & (1 << i)) == 0)
+            
+            if (sw_set_time == -1)
             {
-                sr_bin &= ~(1 << i); // wyzeruj bit n
+                sr_bin_static = tr_bin_storage;
+                sr_bin_static = sr_bin_static ^ 0b00001111;
             }
             else
             {
-                sr_bin = sr_bin ^ (1 << i);
+                sr_bin_static = tr_bin_storage | sr_bin_static;
+            }
+
+
+            for (size_t i = 0; i < 8; i++)
+            {
+                Serial.print(bitRead(sr_bin_static, i));
+            }
+            Serial.println(" - sr_bin_static");
+
+            for (size_t i = 0; i < 8; i++)
+            {
+                Serial.print(bitRead(tr_bin_storage, i));
+            }
+            Serial.println(" - tr_bin_storage");
+        }
+        tr_sleep_mode = false;
+        tr_activity = false;
+        tr_last_sleep = tr_now;
+    }
+
+    if (tr_now > tr_sleep_mode_ms + tr_last_sleep && !tr_sleep_mode)
+    {
+        tr_sleep_mode = true;
+        // turn off UI leds
+        tr_bin_storage = sr_bin_static;
+        sr_bin_static = 0;
+    }
+
+    if (tr_infinity)
+        return;
+
+    if (tr_updated)
+    {
+        tr_updated = false;
+        tr_last = tr_now;
+    }
+
+    if (tr_now > tr_current_period + tr_last)
+    {
+        // turn off mode
+        Serial.print("It's over period [s]: ");
+        Serial.println(tr_current_period / 1000);
+    }
+}
+
+void updateShiftRegister()
+{
+    sr_now = micros();
+    sr_phase = sr_now - sr_last;
+
+    if (sr_phase < 2)
+        return;
+
+    sr_last = sr_now;
+
+    for (size_t i = 0; i < 6; i++)
+    {
+        if ((sr_bin_static & (1 << i)) != 0) // i-bit is equal 1, so turn it on!!!
+        {
+            if (sr_leds_state) // switch on
+            {
+                sr_bin &= ~(1 << i); // wyzeruj bit n
+                sr_bin |= (1 << i);
+            }
+            else // switch off
+            {
+                sr_bin &= ~(1 << i); // wyzeruj bit n
             }
         }
+        else
+        {
+            sr_bin &= ~(1 << i);
+        }
     }
+    sr_leds_state = !sr_leds_state;
+
+    digitalWrite(SR_LATCH, LOW);
+    shiftOut(SR_DATA, SR_CLOCK, MSBFIRST, sr_bin);
+    digitalWrite(SR_LATCH, HIGH);
 }
 
 void setup_pins()
@@ -246,22 +350,17 @@ void setup()
     rv_brightness_v[0] = rv_brightness_v[1] = analogRead(RV_BRIGHTNESS);
     rv_rgb_v[0] = rv_rgb_v[1] = analogRead(RV_RGB);
     ld_mono_fade.Set(rv_brightness_v[0] / 4);
-
-    updateRegister();
 }
 
 void loop()
 {
-    // TEST_UNIT::TEST_RV(RV_BRIGHTNESS);
-    // TEST_UNIT::TEST_RV(RV_RGB); // BROKEN
-    // TEST_UNIT::TEST_SW(SW_1_MONO);
-    // TEST_UNIT::TEST_SW(SW_2_T);
-    // TEST_UNIT::TEST_SW(SW_3_RGB);
-
     updateSwitches();
+
+    updateTimer();
+
     updateRVs();
-    updateSnTimers();
+
+    updateShiftRegister();
 
     ld_mono_fade.Update();
-    updateRegister();
 }

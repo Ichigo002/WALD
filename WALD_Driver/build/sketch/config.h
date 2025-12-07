@@ -4,10 +4,29 @@
 
 #include <Arduino.h>
 
-constexpr double sn_led_timer_interval = 1; // it is simple pwm signal to reduce light of control led cuz its to bright!
+/* TIMER, countdown of each period [ms] */
+
+// unsigned long tr_periods_ms[4] = {
+//     15 * 60UL * 1000UL, //0 led
+//     30 * 60UL * 1000UL, //1 led
+//     90 * 60UL * 1000UL, //2 led 
+//     150 * 60UL * 1000UL //3 led
+//     //period 4 - infinity
+// };
+
+//TESTING
+unsigned long tr_periods_ms[4] = {
+    10 * 1000UL, //0 led
+    20 * 1000UL, //1 led
+    30 * 1000UL, //2 led 
+    40 * 1000UL, //3 led
+    //period 4 - infinity
+};
+
+constexpr unsigned long tr_sleep_mode_ms = 4 * 1000UL; // how long UI leds will be powered to avoid distracting sex and other plays in a bed :) Maybe i will find a girlfriend in the future, However I dont believe in that until studies, adn even during studies in city. ;9
 
 constexpr byte rv_min_sensitivity = 3; //default: 3
-constexpr byte rv_max_sensitivity = 50; //default 50
+constexpr byte rv_max_sensitivity = 65; //default 50
 constexpr int ld_mono_breathe_anim_max_time_ms = 20000; // maximal time of animation breath
 
 

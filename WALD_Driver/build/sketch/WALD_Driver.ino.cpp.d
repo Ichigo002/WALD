@@ -16,5 +16,4 @@ D:\Documents\GitHub\WALD\WALD_Driver\build\sketch\WALD_Driver.ino.cpp.o: \
  D:\Documents\GitHub\WALD\WALD_Driver\build\sketch\testing.h \
  C:\Users\Deciak28_\Documents\Arduino\libraries\JLed\src/jled.h \
  C:\Users\Deciak28_\Documents\Arduino\libraries\JLed\src/jled_base.h \
- C:\Users\Deciak28_\Documents\Arduino\libraries\JLed\src/arduino_hal.h \
- C:\Users\Deciak28_\Documents\Arduino\libraries\TimerKernel\src/TimerKernel.h
+ C:\Users\Deciak28_\Documents\Arduino\libraries\JLed\src/arduino_hal.h
